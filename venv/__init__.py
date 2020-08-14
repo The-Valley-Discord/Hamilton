@@ -15,6 +15,31 @@ async def ping(ctx):
     if qualified == True:
         await ctx.send(embed=await build_embed('discord log', 'Ping', 'My name is Alexander Hamilton.'))
 
+discordbot.remove_command('help')
+@discordbot.command()
+async def help(ctx, mode="user"):
+    if mode == "user":
+        text =  "**Information and Commands:**\n" \
+                "My name is Alexander Hamilton. I manage different currencies for events and general activities. \n\n" \
+                "**score (currency) (user mention)** - check the amount of currency a user has\n" \
+                "**leaderboard (currency)** - check the top stonks in a given currency\n" \
+                "**help banker** - list of commands for currency owners\n" \
+                "**help mod** - list of commands for moderators"
+        await ctx.send(embed=await build_embed('discord log', 'Help', text))
+    elif mode == "mod":
+        text = "***Mod Commands:***\n\n" \
+               "**mint (currency) (currency abbreviation)** - create currency\n" \
+               "**bank (currency) (user mention)** - make user currency owner\n" \
+               "**burn (currency) (user mention)** - remove a user from the list of currency owners\n" \
+               "**enable (currency)** - enable a currency\n" \
+               "**disable (currency)** - disable a currency\n" \
+               "**set (amount) (currency) (user mention)** - set the currency score for a user. **only use this to fix owner mistakes**"
+        await ctx.send(embed=await build_embed('discord log', 'Help', text))
+    elif mode == "banker":
+        text = "***Owner Commands:***\n\n" \
+               "**award (amount) (currency) (user mention)** - give an amount of currency to a user"
+        await ctx.send(embed=await build_embed('discord log', 'Help', text))
+
 @discordbot.command()
 async def mint(ctx, currency, abbreviation):
     qualified = False
